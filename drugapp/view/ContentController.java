@@ -43,13 +43,16 @@ public class ContentController {
 	private void initialize() {
 		mainNameColumn.setCellValueFactory(cellData -> cellData.getValue().mainNameProperty());
 		altNameColumn.setCellValueFactory(cellData -> cellData.getValue().altNameProperty());
+		
 	}
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		
 		// This line makes the list of substances display in the table view
 		searchResultsTable.setItems(mainApp.getSubstanceData());
+		fluidsDropDown.setItems(mainApp.getFluidData());
 	}
+	
 	
 	
 }

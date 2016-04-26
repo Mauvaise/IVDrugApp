@@ -18,6 +18,7 @@ public class MainApp extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
     private ObservableList<Substance> substanceList;
+    private ObservableList<Substance> fluidList;
     private SubstanceDataFetcher dataFetcher;
     
     public static void main(String[] args) {
@@ -34,6 +35,7 @@ public class MainApp extends Application {
         
         this.dataFetcher = new SubstanceDataFetcher();
         substanceList = FXCollections.observableArrayList(dataFetcher.getAllSubstances()); 
+        fluidList = FXCollections.observableArrayList(dataFetcher.getAllFluids()); 
         
         showContent();
     }
@@ -88,5 +90,9 @@ public class MainApp extends Application {
     
     public ObservableList<Substance> getSubstanceData() {
     	return substanceList;
+    }
+    
+    public ObservableList<Substance> getFluidData() {
+    	return fluidList;
     }
 }
