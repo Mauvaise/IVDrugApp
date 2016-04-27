@@ -80,7 +80,7 @@ public class ContentController {
 		searchResultsTable.setItems(substanceList);
 		fluidsDropDown.setItems(mainApp.getFluidData());
 		possibleSuggestions = new ArrayList<String>();
-		addedSubstances = FXCollections.emptyObservableList();
+		addedSubstances = FXCollections.observableArrayList();
 
 		for (Substance substance : substanceList) {
 			possibleSuggestions.add(substance.getMainName());

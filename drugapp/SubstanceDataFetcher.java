@@ -76,7 +76,7 @@ class SubstanceDataFetcher {
 			String url = "jdbc:mysql://localhost:3306/substancesdb";
 			Connection conn = DriverManager.getConnection(url, "Tetris", "L8erA11ig8er");
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery("SELECT * FROM substance WHERE main_name LIKE \'" + substanceName + "\' OR WHERE alt_name LIKE \'" + substanceName + "\'");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM substance WHERE main_name LIKE \'" + substanceName + "\' OR  alt_name LIKE \'" + substanceName + "\'");
 			Substance substance = null;
 			if (rs.next()) {
 				Integer substanceId = rs.getInt("substance_id");
