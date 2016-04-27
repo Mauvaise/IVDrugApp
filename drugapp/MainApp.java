@@ -45,17 +45,18 @@ public class MainApp extends Application {
 
 		showContent();
 	}
+	
+	
+	//Content Controller 
+// getSubstanceByName method takes a String and returns a Substance 
+	
+	public Substance searchForSubstanceByName(String substanceName) {
+		return dataFetcher.getSubstanceByName(substanceName);
+		
+	}
+	
+	
 
-	/*public void handle(KeyEvent enter) {
-		switch (enter.getCode()) {
-		case ENTER:
-			autoCompletionLearnWord(learningTextField.getText().trim());
-			break;
-		default:
-			break;
-
-		}
-	}*/
 	
 	public void initRootLayout() {
 		try {
