@@ -2,9 +2,7 @@ package drugapp;
 
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+
 
 import drugapp.model.Substance;
 
@@ -49,8 +47,7 @@ class SubstanceDataFetcher {
 			String url = "jdbc:mysql://localhost:3306/substancesdb";
 			Connection conn = DriverManager.getConnection(url, "Tetris", "L8erA11ig8er");
 			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt
-					.executeQuery("SELECT * FROM substance WHERE substance_id IN (1, 2, 3, 4, 5, 13, 40, 46, 56)");
+			ResultSet rs = stmt.executeQuery("SELECT * FROM substance WHERE substance_id IN (1, 2, 3, 4, 5, 13, 40, 46, 56)");
 			ArrayList<Substance> fluidList = new ArrayList<Substance>();
 
 			while (rs.next()) {
