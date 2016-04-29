@@ -1,11 +1,13 @@
 package drugapp;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Set;
 
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
+import drugapp.model.Incompatibility;
 import drugapp.model.Substance;
 import drugapp.view.ContentController;
 import javafx.application.Application;
@@ -25,6 +27,7 @@ public class MainApp extends Application {
 	private BorderPane rootLayout;
 	private ObservableList<Substance> substanceList;
 	private ObservableList<Substance> fluidList;
+	private ObservableList<Substance> incompatibilitiesList;
 	private SubstanceDataFetcher dataFetcher;
 
 	public static void main(String[] args) {
@@ -45,19 +48,32 @@ public class MainApp extends Application {
 
 		showContent();
 	}
-	
-	
-	//Content Controller 
-// getSubstanceByName method takes a String and returns a Substance 
-	
+
+	// Content Controller
+	// searchSubstanceByName method takes a String and returns a Substance
+
 	public Substance searchForSubstanceByName(String substanceName) {
 		return dataFetcher.getSubstanceByName(substanceName);
-		
-	}
-	
-	
 
-	
+	}
+
+	public ArrayList<Incompatibility> getIncompatibilityList(ArrayList<Substance> incompatibilityList) {
+		ArrayList<Incompatibility> addedSubstanceIncompatibilities = new ArrayList<Incompatibility>();
+		for (Substance addedSubstance : incompatibilityList) {
+			Incompatibility incompatibility = new Incompatibility(addedSubstance.getMainName());
+
+			for (Substance comparableSubstance : incompatibilityList) {
+				if (addedSubstance.isIncompatibleWith(comparableSubstance)) {
+					incompatibility.addIncompatibility(comparableSubstance.getMainName());
+				}
+
+			}
+
+		}
+		return addedSubstanceIncompatibilities;
+
+	}
+
 	public void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -104,4 +120,5 @@ public class MainApp extends Application {
 	public ObservableList<Substance> getFluidData() {
 		return fluidList;
 	}
+
 }

@@ -65,6 +65,17 @@ public class Substance {
 		return incompatibilitiesList;
 	}
 	
+	public boolean isIncompatibleWith(Substance substance) {
+		for (String incompatibleSubstanceId : substance.getIncompatArray()) {
+			if (Integer.parseInt(incompatibleSubstanceId) == this.getSubstanceId()) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	
+	
 	
 	
 }

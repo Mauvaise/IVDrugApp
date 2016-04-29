@@ -26,7 +26,7 @@
                         <TextField fx:id="autoSearchField" maxHeight="40.0" maxWidth="250.0" prefHeight="40.0" prefWidth="201.0" promptText="Enter a drug" />
                      </children>
                   </HBox>
-                  <Button layoutX="478.0" layoutY="191.0" maxHeight="25.0" maxWidth="150.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="135.0" text="Search" />
+                  <Button fx:id="searchButton" layoutX="478.0" layoutY="191.0" maxHeight="25.0" maxWidth="150.0" mnemonicParsing="false" prefHeight="21.0" prefWidth="135.0" text="Search" />
                   <Label layoutX="26.0" layoutY="25.0" prefHeight="21.0" prefWidth="122.0" text="Choose a fluid..." />
                   <Label layoutX="14.0" layoutY="105.0" text="Add a drug to list.." />
                   <Button layoutX="225.0" layoutY="138.0" mnemonicParsing="false" prefHeight="31.0" prefWidth="50.0" text="Add" />
@@ -41,9 +41,8 @@
                <children>
                   <TableView fx:id="searchResultsTable" layoutX="-2.0" maxWidth="800.0" prefHeight="460.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="-2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columns>
-                      <TableColumn fx:id="mainNameColumn" prefWidth="200.0" resizable="false" text="Name" />
-                      <TableColumn fx:id="altNameColumn" prefWidth="200.0" resizable="false" text="Alt Name" />
-                        <TableColumn maxWidth="400.0" prefWidth="400.0" resizable="false" text="Incompatibilities" />
+                      <TableColumn fx:id="mainNameColumn" prefWidth="278.0" resizable="false" text="Name" />
+                        <TableColumn fx:id="incompatibilitiesColumn" maxWidth="521.0" prefWidth="521.0" resizable="false" text="Incompatibilities" />
                     </columns>
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
