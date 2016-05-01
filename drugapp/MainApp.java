@@ -2,14 +2,6 @@ package drugapp;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.Objects;
-import java.util.Set;
-
-import org.controlsfx.control.textfield.AutoCompletionBinding;
-import org.controlsfx.control.textfield.TextFields;
-
 import drugapp.model.Incompatibility;
 import drugapp.model.Substance;
 import drugapp.view.ContentController;
@@ -18,8 +10,6 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
@@ -29,8 +19,6 @@ public class MainApp extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private ObservableList<Substance> substanceList;
-	private ObservableList<Substance> fluidList;
-	private ObservableList<Substance> incompatibilitiesList;
 	private SubstanceDataFetcher dataFetcher;
 
 	public static void main(String[] args) {
@@ -49,7 +37,6 @@ public class MainApp extends Application {
 		if (substanceListFetch != null) {
 			substanceList = FXCollections.observableArrayList(substanceListFetch);
 		}
-	//	fluidList = FXCollections.observableArrayList(dataFetcher.getAllFluids());
 
 		showContent();
 	}
@@ -118,9 +105,4 @@ public class MainApp extends Application {
 	public ObservableList<Substance> getSubstanceData() {
 		return substanceList;
 	}
-
-	/*public ObservableList<Substance> getFluidData() {
-		return fluidList;
-	}*/
-
 }

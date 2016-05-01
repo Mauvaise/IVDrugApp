@@ -3,7 +3,6 @@ package drugapp.model;
 import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 
 import java.util.ArrayList;

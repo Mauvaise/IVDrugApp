@@ -1,11 +1,6 @@
 package drugapp.view;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
-
 import org.controlsfx.control.textfield.AutoCompletionBinding;
 import org.controlsfx.control.textfield.TextFields;
 
@@ -20,7 +15,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -127,11 +121,26 @@ public class ContentController {
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				ArrayList<Substance> substancesToCheck = new ArrayList<>(addedSubstances);
+				ArrayList<Substance> substancesToCheck = new ArrayList<>();
+				for (Substance addedSubstance : addedSubstances) {
+					Boolean addThisSubstance = true; //Flag set to check if addedSubstances has duplicates
+
+					for (Substance substanceToCheck : substancesToCheck) {
+						if (substanceToCheck.getSubstanceId() == addedSubstance.getSubstanceId()) {
+							addThisSubstance = false;
+						}
+					}
+					//Only if addedSubstance is not a duplicate - add it to search list 
+					if (addThisSubstance) {
+						substancesToCheck.add(addedSubstance);
+					}
+				}
 				System.out.println(substancesToCheck);
-				incompatibleSubstances = FXCollections.observableArrayList(mainApp.getIncompatibilityList(substancesToCheck));
+				incompatibleSubstances = FXCollections
+						.observableArrayList(mainApp.getIncompatibilityList(substancesToCheck));
 				searchResultsTable.setItems(incompatibleSubstances);
 			}
+
 		});
 
 		addButton.setOnAction(new EventHandler<ActionEvent>() {
