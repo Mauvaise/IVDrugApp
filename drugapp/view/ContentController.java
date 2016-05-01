@@ -19,6 +19,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -35,8 +36,8 @@ public class ContentController {
 	private ObservableList<Substance> addedSubstances;
 	private ObservableList<Incompatibility> incompatibleSubstances;
 
-	@FXML
-	private ChoiceBox<Substance> fluidsDropDown;
+//	@FXML
+//	private ChoiceBox<Substance> fluidsDropDown;
 
 	@FXML
 	private HBox autoSearchBox;
@@ -77,6 +78,8 @@ public class ContentController {
 
 	@FXML
 	private void initialize() {
+		searchResultsTable.setPlaceholder(new Label("My table is empty message"));
+		addedSubstanceTable.setPlaceholder(new Label("No drugs added"));
 		mainNameColumn.setCellValueFactory(cellData -> cellData.getValue().getMainNameProperty());
 		incompatibilitiesColumn.setCellValueFactory(cellData -> cellData.getValue().getIncompatibilitiesProperty());
 		mainNameAddedSubstanceColumn.setCellValueFactory(cellData -> cellData.getValue().mainNameProperty());
@@ -85,8 +88,8 @@ public class ContentController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		ObservableList<Substance> substanceList = mainApp.getSubstanceData();
-		
-		fluidsDropDown.setItems(mainApp.getFluidData());
+
+//		fluidsDropDown.setItems(mainApp.getFluidData());
 		possibleSuggestions = new ArrayList<String>();
 		addedSubstances = FXCollections.observableArrayList();
 		incompatibleSubstances = FXCollections.observableArrayList();

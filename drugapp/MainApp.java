@@ -46,7 +46,7 @@ public class MainApp extends Application {
 
 		this.dataFetcher = new SubstanceDataFetcher();
 		substanceList = FXCollections.observableArrayList(dataFetcher.getAllSubstances());
-		fluidList = FXCollections.observableArrayList(dataFetcher.getAllFluids());
+	//	fluidList = FXCollections.observableArrayList(dataFetcher.getAllFluids());
 
 		showContent();
 	}
@@ -119,8 +119,8 @@ public class MainApp extends Application {
 		return substanceList;
 	}
 
-	public ObservableList<Substance> getFluidData() {
+	/*public ObservableList<Substance> getFluidData() {
 		return fluidList;
-	}
+	}*/
 
 }

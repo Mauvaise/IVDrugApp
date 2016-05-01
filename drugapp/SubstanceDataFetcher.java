@@ -24,10 +24,13 @@ class SubstanceDataFetcher {
 
 				Integer substanceId = rs.getInt("substance_id");
 				String mainName = rs.getString("main_name");
-				String altName = rs.getString("alt_name");
+				mainName = mainName.replace("\\", "");
+				String altName = rs.getString("alt_name");		
+				if (altName != null){
+				   altName = altName.replace("\\", "");
+				}
 				String incompatibilities = rs.getString("incompatibilities");
 				Substance substance = new Substance(substanceId, mainName, altName, incompatibilities);
-				// System.out.println(incompatibilities);
 				substanceList.add(substance);
 			}
 			conn.close();
@@ -41,7 +44,7 @@ class SubstanceDataFetcher {
 
 	}
 
-	public ArrayList<Substance> getAllFluids() {
+/*	public ArrayList<Substance> getAllFluids() {
 		try {
 			String url = "jdbc:mysql://localhost:3306/substancesdb";
 			Connection conn = DriverManager.getConnection(url, "Tetris", "L8erA11ig8er");
@@ -69,7 +72,7 @@ class SubstanceDataFetcher {
 			return null;
 		}
 
-	}
+	}*/
 
 	// New method to query DB and return single substance by mainName or altName
 	public Substance getSubstanceByName(String substanceName) {
@@ -83,7 +86,11 @@ class SubstanceDataFetcher {
 			if (rs.next()) {
 				Integer substanceId = rs.getInt("substance_id");
 				String mainName = rs.getString("main_name");
+				mainName = mainName.replace("\\", "");
 				String altName = rs.getString("alt_name");
+				if (altName != null){
+					   altName = altName.replace("\\", "");
+					}
 				String incompatibilities = rs.getString("incompatibilities");
 				substance = new Substance(substanceId, mainName, altName, incompatibilities);
 
