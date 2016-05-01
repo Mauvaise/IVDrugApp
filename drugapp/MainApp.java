@@ -45,7 +45,10 @@ public class MainApp extends Application {
 		initRootLayout();
 
 		this.dataFetcher = new SubstanceDataFetcher();
-		substanceList = FXCollections.observableArrayList(dataFetcher.getAllSubstances());
+		ArrayList<Substance> substanceListFetch = dataFetcher.getAllSubstances();
+		if (substanceListFetch != null) {
+			substanceList = FXCollections.observableArrayList(substanceListFetch);
+		}
 	//	fluidList = FXCollections.observableArrayList(dataFetcher.getAllFluids());
 
 		showContent();

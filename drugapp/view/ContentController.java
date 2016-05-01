@@ -17,6 +17,8 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
@@ -46,7 +48,7 @@ public class ContentController {
 	private Button searchButton;
 
 	// Added substances table
-	
+
 	@FXML
 	private TableView<Substance> addedSubstanceTable;
 
@@ -83,20 +85,31 @@ public class ContentController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		ObservableList<Substance> substanceList = mainApp.getSubstanceData();
+
+
 		
-		possibleSuggestions = new ArrayList<String>();
-		addedSubstances = FXCollections.observableArrayList();
-		incompatibleSubstances = FXCollections.observableArrayList();
+		if (substanceList != null) {
 
-		for (Substance substance : substanceList) {
-			possibleSuggestions.add(substance.getMainName());
-			if (substance.getAltName() != null) {
-				possibleSuggestions.add(substance.getAltName());
+			possibleSuggestions = new ArrayList<String>();
+			addedSubstances = FXCollections.observableArrayList();
+			incompatibleSubstances = FXCollections.observableArrayList();
+
+			for (Substance substance : substanceList) {
+				possibleSuggestions.add(substance.getMainName());
+				if (substance.getAltName() != null) {
+					possibleSuggestions.add(substance.getAltName());
+				}
 			}
-		}
 
-		this.autoCompletionBinding = TextFields.bindAutoCompletion(autoSearchField, possibleSuggestions);
-		HBox.setHgrow(autoSearchField, Priority.ALWAYS);
+			this.autoCompletionBinding = TextFields.bindAutoCompletion(autoSearchField, possibleSuggestions);
+			HBox.setHgrow(autoSearchField, Priority.ALWAYS);
+		} else {
+			Alert alert = new Alert(AlertType.WARNING);
+			alert.setTitle("Server Error");
+			alert.setHeaderText("No Connection Found!");
+			alert.showAndWait();
+			}
+		
 
 		autoSearchField.setOnKeyPressed(new EventHandler<KeyEvent>() {
 			@Override
@@ -116,7 +129,6 @@ public class ContentController {
 			public void handle(ActionEvent event) {
 				ArrayList<Substance> substancesToCheck = new ArrayList<>(addedSubstances);
 				System.out.println(substancesToCheck);
-				ArrayList<Incompatibility> testList = mainApp.getIncompatibilityList(substancesToCheck);
 				incompatibleSubstances = FXCollections.observableArrayList(mainApp.getIncompatibilityList(substancesToCheck));
 				searchResultsTable.setItems(incompatibleSubstances);
 			}
