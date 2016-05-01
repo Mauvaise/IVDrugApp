@@ -2,6 +2,9 @@ package drugapp;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
 import org.controlsfx.control.textfield.AutoCompletionBinding;
@@ -31,7 +34,6 @@ public class MainApp extends Application {
 	private SubstanceDataFetcher dataFetcher;
 
 	public static void main(String[] args) {
-
 		launch(args);
 	}
 
@@ -54,7 +56,6 @@ public class MainApp extends Application {
 
 	public Substance searchForSubstanceByName(String substanceName) {
 		return dataFetcher.getSubstanceByName(substanceName);
-
 	}
 
 	public ArrayList<Incompatibility> getIncompatibilityList(ArrayList<Substance> incompatibilityList) {
@@ -66,12 +67,13 @@ public class MainApp extends Application {
 				if (addedSubstance.isIncompatibleWith(comparableSubstance)) {
 					incompatibility.addIncompatibility(comparableSubstance.getMainName());
 				}
-
 			}
-
+			addedSubstanceIncompatibilities.add(incompatibility);
 		}
+		//addedSubstanceIncompatibilities.removeAll(Arrays.asList(null)); 
+		//addedSubstanceIncompatibilities.removeAll(Collections.singleton(null));
+		//addedSubstanceIncompatibilities.removeAll(Arrays.asList("null"));
 		return addedSubstanceIncompatibilities;
-
 	}
 
 	public void initRootLayout() {

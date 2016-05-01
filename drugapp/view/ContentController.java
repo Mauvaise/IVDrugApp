@@ -2,6 +2,7 @@ package drugapp.view;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -54,6 +55,9 @@ public class ContentController {
 	@FXML
 	private TableColumn<Substance, String> mainNameAddedSubstanceColumn; 
 	
+	@FXML
+	private Button addButton;
+	
 	// Search results table
 
 	@FXML
@@ -76,13 +80,12 @@ public class ContentController {
 		mainNameColumn.setCellValueFactory(cellData -> cellData.getValue().getMainNameProperty());
 		incompatibilitiesColumn.setCellValueFactory(cellData -> cellData.getValue().getIncompatibilitiesProperty());
 		mainNameAddedSubstanceColumn.setCellValueFactory(cellData -> cellData.getValue().mainNameProperty());
-
 	}
 
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		ObservableList<Substance> substanceList = mainApp.getSubstanceData();
-
+		
 		fluidsDropDown.setItems(mainApp.getFluidData());
 		possibleSuggestions = new ArrayList<String>();
 		addedSubstances = FXCollections.observableArrayList();
@@ -103,27 +106,42 @@ public class ContentController {
 			public void handle(KeyEvent enter) {
 				switch (enter.getCode()) {
 				case ENTER:
-					Substance enteredSubstance = mainApp.searchForSubstanceByName(autoSearchField.getText().trim());
-					updateSubstanceTable(enteredSubstance);
-
+					addSubstance();
 					break;
 				default:
 					break;
-
 				}
 			}
 		});
+		
+		
 
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
 				ArrayList<Substance> substancesToCheck = new ArrayList<>(addedSubstances);
+				System.out.println(substancesToCheck);
+				ArrayList<Incompatibility> testList = mainApp.getIncompatibilityList(substancesToCheck);
 				incompatibleSubstances = FXCollections.observableArrayList(mainApp.getIncompatibilityList(substancesToCheck));
+			//	incompatibleSubstances.removeAll(Collections.singleton(null));
 				searchResultsTable.setItems(incompatibleSubstances);
-				
+
+				System.out.print("Substances to check: " + testList);			
 			}
 		});
-
+		
+		addButton.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				addSubstance();				
+			}
+		});
+		
+	}
+	
+	private void addSubstance() {
+		Substance enteredSubstance = mainApp.searchForSubstanceByName(autoSearchField.getText().trim());
+		updateSubstanceTable(enteredSubstance);
 	}
 
 	private void updateSubstanceTable(Substance enteredSubstance) {
