@@ -1,4 +1,5 @@
 package drugapp.model;
+
 import java.util.List;
 
 import javafx.beans.property.SimpleIntegerProperty;
@@ -28,29 +29,29 @@ public class Substance {
 		setIncompatArray(incompatibilities);
 
 	}
+
 	public Integer getSubstanceId() {
 		return substanceId.get();
 	}
-	
+
 	public String getMainName() {
 		return mainName.get();
 	}
-	
+
 	public SimpleStringProperty mainNameProperty() {
 		return mainName;
 	}
-	
+
 	public SimpleStringProperty altNameProperty() {
 		return altName;
 	}
-	
+
 	public String getAltName() {
 		return altName.get();
 	}
-	
+
 	public String toString() {
 		return getSubstanceId() + getMainName() + getAltName() + incompatibilitiesList;
-
 	}
 
 	private void setIncompatArray(String incompatibilities) {
@@ -61,10 +62,11 @@ public class Substance {
 		}
 
 	}
-	public List<String> getIncompatArray(){
+
+	public List<String> getIncompatArray() {
 		return incompatibilitiesList;
 	}
-	
+
 	public boolean isIncompatibleWith(Substance substance) {
 		for (String incompatibleSubstanceId : substance.getIncompatArray()) {
 			if (Integer.parseInt(incompatibleSubstanceId) == this.getSubstanceId()) {
@@ -73,9 +75,4 @@ public class Substance {
 		}
 		return false;
 	}
-	
-	
-	
-	
-	
 }

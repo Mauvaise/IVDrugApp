@@ -36,9 +36,6 @@ public class ContentController {
 	private ObservableList<Substance> addedSubstances;
 	private ObservableList<Incompatibility> incompatibleSubstances;
 
-//	@FXML
-//	private ChoiceBox<Substance> fluidsDropDown;
-
 	@FXML
 	private HBox autoSearchBox;
 
@@ -47,18 +44,18 @@ public class ContentController {
 
 	@FXML
 	private Button searchButton;
-	
+
 	// Added substances table
 	
 	@FXML
 	private TableView<Substance> addedSubstanceTable;
 
 	@FXML
-	private TableColumn<Substance, String> mainNameAddedSubstanceColumn; 
-	
+	private TableColumn<Substance, String> mainNameAddedSubstanceColumn;
+
 	@FXML
 	private Button addButton;
-	
+
 	// Search results table
 
 	@FXML
@@ -70,15 +67,13 @@ public class ContentController {
 	@FXML
 	private TableColumn<Incompatibility, String> incompatibilitiesColumn;
 
-
-
 	public ContentController() {
 
 	}
 
 	@FXML
 	private void initialize() {
-		searchResultsTable.setPlaceholder(new Label("My table is empty message"));
+		searchResultsTable.setPlaceholder(new Label("No drugs searched"));
 		addedSubstanceTable.setPlaceholder(new Label("No drugs added"));
 		mainNameColumn.setCellValueFactory(cellData -> cellData.getValue().getMainNameProperty());
 		incompatibilitiesColumn.setCellValueFactory(cellData -> cellData.getValue().getIncompatibilitiesProperty());
@@ -88,8 +83,7 @@ public class ContentController {
 	public void setMainApp(MainApp mainApp) {
 		this.mainApp = mainApp;
 		ObservableList<Substance> substanceList = mainApp.getSubstanceData();
-
-//		fluidsDropDown.setItems(mainApp.getFluidData());
+		
 		possibleSuggestions = new ArrayList<String>();
 		addedSubstances = FXCollections.observableArrayList();
 		incompatibleSubstances = FXCollections.observableArrayList();
@@ -116,8 +110,6 @@ public class ContentController {
 				}
 			}
 		});
-		
-		
 
 		searchButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -126,22 +118,19 @@ public class ContentController {
 				System.out.println(substancesToCheck);
 				ArrayList<Incompatibility> testList = mainApp.getIncompatibilityList(substancesToCheck);
 				incompatibleSubstances = FXCollections.observableArrayList(mainApp.getIncompatibilityList(substancesToCheck));
-			//	incompatibleSubstances.removeAll(Collections.singleton(null));
 				searchResultsTable.setItems(incompatibleSubstances);
-
-				System.out.print("Substances to check: " + testList);			
 			}
 		});
-		
+
 		addButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent event) {
-				addSubstance();				
+				addSubstance();
 			}
 		});
-		
+
 	}
-	
+
 	private void addSubstance() {
 		Substance enteredSubstance = mainApp.searchForSubstanceByName(autoSearchField.getText().trim());
 		updateSubstanceTable(enteredSubstance);
@@ -153,5 +142,4 @@ public class ContentController {
 			addedSubstanceTable.setItems(addedSubstances);
 		}
 	}
-	
 }

@@ -70,9 +70,6 @@ public class MainApp extends Application {
 			}
 			addedSubstanceIncompatibilities.add(incompatibility);
 		}
-		//addedSubstanceIncompatibilities.removeAll(Arrays.asList(null)); 
-		//addedSubstanceIncompatibilities.removeAll(Collections.singleton(null));
-		//addedSubstanceIncompatibilities.removeAll(Arrays.asList("null"));
 		return addedSubstanceIncompatibilities;
 	}
 
