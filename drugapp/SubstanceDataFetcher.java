@@ -6,12 +6,22 @@ import java.util.ArrayList;
 import drugapp.model.Substance;
 
 /**
- * Test Query Need to write data parsing methods in this class - might move to
- * another class
+ * 
+ * The Class SubstanceDataFetcher connects 
+ * to the SQL database and fetches all necessary 
+ * data for parsing in MainApp.
+ * 
+ * @author kgray7
+ * @see MainApp 
+ * 
  */
-
 class SubstanceDataFetcher {
 
+	/**
+	 * Queries database for all substances.
+	 *
+	 * @return all substances
+	 */
 	public ArrayList<Substance> getAllSubstances() {
 		try {
 			String url = "jdbc:mysql://localhost:3306/substancesdb";
@@ -44,7 +54,14 @@ class SubstanceDataFetcher {
 
 	}
 
-	// New method to query DB and return single substance by mainName or altName
+	/**
+	 * Queries the database for substances matching 
+	 * mainName or altName of parameters. 
+	 *
+	 * @param substanceName the substance name
+	 * @return the substance by name
+	 */
+
 	public Substance getSubstanceByName(String substanceName) {
 		try {
 			String url = "jdbc:mysql://localhost:3306/substancesdb";
@@ -77,6 +94,12 @@ class SubstanceDataFetcher {
 
 	}
 
+	/**
+	 * Gets all incompatibilities by their id.
+	 *
+	 * @param incompatibilityList the incompatibility list
+	 * @return all incompatibilities by name
+	 */
 	public ArrayList<Substance> getAllIncompatibilitiesByName(ArrayList<Integer> incompatibilityList) {
 		try {
 			String url = "jdbc:mysql://localhost:3306/substancesdb";

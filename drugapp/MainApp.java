@@ -14,17 +14,33 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+/**
+ * The Class MainApp starts the application and performs all business logic.
+ * This includes parsing through query results. 
+ * 
+ * @author kgray7
+ * 
+ */
 public class MainApp extends Application {
-
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private ObservableList<Substance> substanceList;
 	private SubstanceDataFetcher dataFetcher;
 
+	/**
+	 * The main method.
+	 *
+	 * @param args 
+	 */
 	public static void main(String[] args) {
 		launch(args);
 	}
 
+	/*
+	 * Sets up the primary stage. 
+	 * 
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -33,21 +49,31 @@ public class MainApp extends Application {
 		initRootLayout();
 
 		this.dataFetcher = new SubstanceDataFetcher();
+		// Creates an array of Substances from database results.
 		ArrayList<Substance> substanceListFetch = dataFetcher.getAllSubstances();
 		if (substanceListFetch != null) {
 			substanceList = FXCollections.observableArrayList(substanceListFetch);
 		}
-
 		showContent();
 	}
 
-	// Content Controller
-	// searchSubstanceByName method takes a String and returns a Substance
-
+	/**
+	 * Searches for a String and returns a Substance.
+	 *
+	 * @param substanceName the substance name
+	 * @return the substance
+	 */
 	public Substance searchForSubstanceByName(String substanceName) {
 		return dataFetcher.getSubstanceByName(substanceName);
 	}
 
+	/**
+	 * Gets the incompatibility list of Substances and returns the
+	 * incompatibility list of Incompatibilities.
+	 *
+	 * @param incompatibilityList the incompatibility list
+	 * @return the incompatibility list
+	 */
 	public ArrayList<Incompatibility> getIncompatibilityList(ArrayList<Substance> incompatibilityList) {
 		ArrayList<Incompatibility> addedSubstanceIncompatibilities = new ArrayList<Incompatibility>();
 		for (Substance addedSubstance : incompatibilityList) {
@@ -63,6 +89,9 @@ public class MainApp extends Application {
 		return addedSubstanceIncompatibilities;
 	}
 
+	/**
+	 * Initializes the root layout.
+	 */
 	public void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -77,6 +106,9 @@ public class MainApp extends Application {
 		}
 	}
 
+	/**
+	 * Shows the content.
+	 */
 	public void showContent() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -95,13 +127,18 @@ public class MainApp extends Application {
 
 	/**
 	 * Returns the main stage.
-	 * 
-	 * @return
+	 *
+	 * @return the primary stage
 	 */
 	public Stage getPrimaryStage() {
 		return primaryStage;
 	}
 
+	/**
+	 * Gets the substance data and returns it as an ObservableList.
+	 *
+	 * @return the substance data
+	 */
 	public ObservableList<Substance> getSubstanceData() {
 		return substanceList;
 	}
